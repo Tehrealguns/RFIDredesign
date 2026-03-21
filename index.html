@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAMP RFID — Track Everything. Know Everything.</title>
+  <meta name="description" content="RAMP's RFID solutions help forward-thinking businesses track inventory and assets with precision." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <!-- Three.js Canvas (fixed background) -->
+  <canvas id="scene"></canvas>
+
+  <!-- Loading screen -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <span class="loader-text">RAMP</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav-logo">
+      <img src="https://ramprfid.wpengine.com/wp-content/uploads/2023/06/logo.png" alt="RAMP RFID" />
+    </div>
+    <div class="nav-links">
+      <a href="#solutions">Solutions</a>
+      <a href="#case-studies">Case Studies</a>
+      <a href="#technology">Technology</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Get Started</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu">
+    <a href="#solutions">Solutions</a>
+    <a href="#case-studies">Case Studies</a>
+    <a href="#technology">Technology</a>
+    <a href="#about">About</a>
+    <a href="#contact">Get Started</a>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
+
+  <!-- Content Sections -->
+  <main id="content">
+
+    <!-- HERO -->
+    <section id="hero" class="section section--hero">
+      <div class="hero-bg-image">
+        <img src="https://ramprfid.com/wp-content/uploads/2023/06/Home-Page-Image-Transparent-2.png" alt="RFID Hardware" class="hero-product-img" />
+      </div>
+      <div class="hero-content">
+        <div class="hero-tag">Radio Frequency Identification</div>
+        <h1 class="hero-title">
+          <span class="line"><span class="word">Track</span> <span class="word">Everything.</span></span>
+          <span class="line"><span class="word">Know</span> <span class="word"><em>Everything.</em></span></span>
+        </h1>
+        <p class="hero-sub">RFID solutions that give forward-thinking businesses real-time visibility into every asset, every item, everywhere.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn--primary">Get Started</a>
+          <a href="#solutions" class="btn btn--ghost">Explore Solutions</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll to explore</span>
+      </div>
+    </section>
+
+    <!-- WHAT IS RFID -->
+    <section id="rfid-intro" class="section section--rfid-intro">
+      <div class="container">
+        <div class="split-layout">
+          <div class="split-left">
+            <span class="section-label">The Technology</span>
+            <h2 class="reveal-text">RFID uses <em>radio waves</em> to identify and track objects automatically.</h2>
+            <div class="rfid-hero-img reveal-fade">
+              <img src="https://ramprfid.com/wp-content/uploads/2023/06/RAMP-Tagging-Hero-Image-scaled.jpg" alt="RFID tagging in action" loading="lazy" />
+            </div>
+          </div>
+          <div class="split-right">
+            <p class="reveal-fade">Each item carries a small tag with a chip and antenna. When activated by a reader's signal, the tag transmits its unique data wirelessly — giving you instant, accurate visibility.</p>
+            <div class="rfid-stats">
+              <div class="stat-item reveal-fade">
+                <span class="stat-number" data-count="25">0</span><span class="stat-suffix">X</span>
+                <span class="stat-label">Faster Stocktakes</span>
+              </div>
+              <div class="stat-item reveal-fade">
+                <span class="stat-number" data-count="98">0</span><span class="stat-suffix">%+</span>
+                <span class="stat-label">Tracking Accuracy</span>
+              </div>
+              <div class="stat-item reveal-fade">
+                <span class="stat-number" data-count="50">0</span><span class="stat-suffix">%+</span>
+                <span class="stat-label">Less Shrinkage</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUSTED BY -->
+    <section id="trusted" class="section section--trusted">
+      <div class="container">
+        <h3 class="trusted-title reveal-fade">Trusted by Australia's leading companies</h3>
+        <div class="logo-marquee">
+          <div class="marquee-track">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Hoya-1.png" alt="Hoya" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Flinders-Ports-1.png" alt="Flinders Ports" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/City-Chic.png" alt="City Chic" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Australian-Parliament-House.png" alt="Parliament House" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Ark-Swimwear.png" alt="Ark Swimwear" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Aramex.png" alt="Aramex" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/The-University-of-Sydney-1.png" alt="University of Sydney" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/MMG-1.png" alt="MMG" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/NSW-TAFE-1.png" alt="NSW TAFE" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Peter-Warren-Automotive-1.png" alt="Peter Warren" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Bohemian-Traders.png" alt="Bohemian Traders" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Lark-Distillery-1.png" alt="Lark Distillery" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Thread-Together-1.png" alt="Thread Together" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Titan-1.png" alt="Titan Group" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/BAKU.png" alt="BAKU" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Tuchuzy-1.png" alt="Tuchuzy" loading="lazy" />
+            <!-- duplicate for seamless loop -->
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Hoya-1.png" alt="Hoya" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Flinders-Ports-1.png" alt="Flinders Ports" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/City-Chic.png" alt="City Chic" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Australian-Parliament-House.png" alt="Parliament House" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Ark-Swimwear.png" alt="Ark Swimwear" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Aramex.png" alt="Aramex" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/The-University-of-Sydney-1.png" alt="University of Sydney" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/MMG-1.png" alt="MMG" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/NSW-TAFE-1.png" alt="NSW TAFE" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Peter-Warren-Automotive-1.png" alt="Peter Warren" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Bohemian-Traders.png" alt="Bohemian Traders" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Lark-Distillery-1.png" alt="Lark Distillery" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Thread-Together-1.png" alt="Thread Together" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Titan-1.png" alt="Titan Group" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/BAKU.png" alt="BAKU" loading="lazy" />
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Tuchuzy-1.png" alt="Tuchuzy" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTIONS -->
+    <section id="solutions" class="section section--solutions">
+      <div class="container">
+        <span class="section-label">What We Do</span>
+        <h2 class="section-title reveal-text">Solutions that <em>transform</em> how you operate</h2>
+
+        <div class="solutions-grid">
+          <div class="solution-card reveal-card" data-solution="asset">
+            <div class="solution-icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="24" cy="32" r="6" stroke="currentColor" stroke-width="2"/>
+                <line x1="36" y1="26" x2="48" y2="26" stroke="currentColor" stroke-width="2"/>
+                <line x1="36" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2"/>
+                <line x1="36" y1="38" x2="44" y2="38" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Asset Tracking</h3>
+            <p>Real-time location visibility across multiple sites. Automate workflows, eliminate guesswork, and optimise every resource.</p>
+            <div class="solution-features">
+              <span>Location Tracking</span>
+              <span>Process Automation</span>
+              <span>Security & Accountability</span>
+            </div>
+          </div>
+
+          <div class="solution-card reveal-card" data-solution="inventory">
+            <div class="solution-icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="12" y="8" width="40" height="48" rx="3" stroke="currentColor" stroke-width="2"/>
+                <line x1="20" y1="20" x2="44" y2="20" stroke="currentColor" stroke-width="2"/>
+                <line x1="20" y1="28" x2="44" y2="28" stroke="currentColor" stroke-width="2"/>
+                <line x1="20" y1="36" x2="44" y2="36" stroke="currentColor" stroke-width="2"/>
+                <line x1="20" y1="44" x2="36" y2="44" stroke="currentColor" stroke-width="2"/>
+                <circle cx="44" cy="44" r="8" stroke="currentColor" stroke-width="2"/>
+                <polyline points="41,44 43,46 47,42" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <h3>Inventory Tracking</h3>
+            <p>25X faster stocktakes. 98%+ accuracy. From retail to vendor-managed inventory — data-driven decisions at every level.</p>
+            <div class="solution-features">
+              <span>Retail Inventory</span>
+              <span>General Tracking</span>
+              <span>Vendor Managed</span>
+            </div>
+          </div>
+
+          <div class="solution-card reveal-card" data-solution="vehicle">
+            <div class="solution-icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="24" width="48" height="20" rx="4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="20" cy="44" r="5" stroke="currentColor" stroke-width="2"/>
+                <circle cx="44" cy="44" r="5" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 24 L20 12 L44 12 L50 24" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 32 C0 28 0 20 8 16" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                <path d="M60 32 C64 28 64 20 56 16" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+              </svg>
+            </div>
+            <h3>Vehicle Identification</h3>
+            <p>Automated tracking as vehicles enter and leave. Reduce manual effort to less than 1%, free your teams for strategic work.</p>
+            <div class="solution-features">
+              <span>Automated Gates</span>
+              <span>Fleet Monitoring</span>
+              <span>Instant Alerts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="case-studies" class="section section--cases">
+      <div class="container">
+        <span class="section-label">Success Stories</span>
+        <h2 class="section-title reveal-text">Real results from <em>real businesses</em></h2>
+      </div>
+
+      <div class="cases-scroll">
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/07/Packing-Order-scaled.jpg" alt="Ark Swimwear warehouse" loading="lazy" />
+            <span class="case-industry">eCommerce</span>
+          </div>
+          <div class="case-body">
+            <h3>Ark Swimwear</h3>
+            <p class="case-result">100,000 items counted in a single day. Shipping accuracy: 100%.</p>
+            <blockquote>"Ramp's RFID technology has great ROI for us."<cite>— Renee Kirby, Founder</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/07/Thread-Together_website-2-scaled.jpg" alt="Thread Together operations" loading="lazy" />
+            <span class="case-industry">Charity</span>
+          </div>
+          <div class="case-body">
+            <h3>Thread Together</h3>
+            <p class="case-result">Millions of clothing items tracked. Faster response to communities in need during COVID-19.</p>
+            <blockquote>"We are now able to rapidly determine the amount of inventory on hand."<cite>— Anthony Chesler, CEO</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Case-study-Flinder-Port01.jpg" alt="Flinders Ports container terminal" loading="lazy" />
+            <span class="case-industry">Ports & Logistics</span>
+          </div>
+          <div class="case-body">
+            <h3>Flinders Ports</h3>
+            <p class="case-result">Manual transactions reduced to less than 1%. Dramatic labour cost reduction.</p>
+            <blockquote>"Significant improvements in vehicle tracking efficiency and productivity."<cite>— Jai Alexander, Superintendent</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/08/fashion-design-mannequin-measurement-concept-2022-12-16-01-01-29-utc-scaled.jpg" alt="BAKU fashion retail" loading="lazy" />
+            <span class="case-industry">Retail</span>
+          </div>
+          <div class="case-body">
+            <h3>BAKU Swimwear</h3>
+            <p class="case-result">25X faster inventory checks. 100% order accuracy. Network-wide visibility.</p>
+            <blockquote>"The Ramp RFID solution makes inventory tracking infinitely better than before."<cite>— Dax Bykerk, Director</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Case-study-MMG01.jpg" alt="MMG Dugald River mine" loading="lazy" />
+            <span class="case-industry">Mining</span>
+          </div>
+          <div class="case-body">
+            <h3>MMG Dugald River</h3>
+            <p class="case-result">Real-time tracking in extreme conditions. Reliable in electromagnetic interference and extreme heat.</p>
+            <blockquote>"Getting RFID to work reliably in challenging industrial settings is far more difficult than originally anticipated."<cite>— Brad Winks, Project Manager</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/06/Case-study-Australian-Parliment02.jpg" alt="Australian Parliament House art collection" loading="lazy" />
+            <span class="case-industry">Government / Arts</span>
+          </div>
+          <div class="case-body">
+            <h3>Parliament House</h3>
+            <p class="case-result">8,000 artworks tracked across a 32-hectare site. Quick audits with minimal interruption.</p>
+            <blockquote>"Our collection is large and extremely mobile."<cite>— Justine van Mourik, Director</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-image">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/09/clothes-choice-in-clothing-store-nobody-2021-08-29-07-40-31-utc.jpg" alt="Rhythm Snowsports retail" loading="lazy" />
+            <span class="case-industry">Retail</span>
+          </div>
+          <div class="case-body">
+            <h3>Rhythm Snowsports</h3>
+            <p class="case-result">Stocktaking reduced by hundreds of hours. 200+ brands tracked in a 24-hour store.</p>
+            <blockquote>"Ramp RFID makes it so much easier to find stock in store or warehouse."<cite>— Naomi Nevin, Ecommerce Manager</cite></blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY -->
+    <section id="technology" class="section section--tech">
+      <div class="container">
+        <span class="section-label">The Stack</span>
+        <h2 class="section-title reveal-text">Purpose-built <em>hardware & software</em></h2>
+
+        <div class="tech-grid">
+          <div class="tech-item reveal-fade">
+            <div class="tech-img">
+              <img src="https://ramprfid.com/wp-content/uploads/2023/09/Roll-of-RFID-Tags.png" alt="Roll of RFID Tags" loading="lazy" />
+            </div>
+            <div class="tech-number">01</div>
+            <h3>RFID Tags</h3>
+            <p>Passive tags from under $0.10 with 20+ year lifespan. Active tags reaching 100m+ range. Tailored to your environment.</p>
+          </div>
+          <div class="tech-item reveal-fade">
+            <div class="tech-img">
+              <img src="https://ramprfid.com/wp-content/uploads/2023/09/RFID-Handheld-Reader.jpg" alt="RFID Handheld Reader" loading="lazy" />
+            </div>
+            <div class="tech-number">02</div>
+            <h3>Readers & Portals</h3>
+            <p>Fixed and handheld readers from Zebra, Impinj, and Chainway. Portal systems for entrances, exits, and key zones.</p>
+          </div>
+          <div class="tech-item reveal-fade">
+            <div class="tech-img">
+              <img src="https://ramprfid.com/wp-content/uploads/2023/06/RFID-Tunnel.jpg" alt="RFID Tunnel Scanner" loading="lazy" />
+            </div>
+            <div class="tech-number">03</div>
+            <h3>Tunnels</h3>
+            <p>High-volume automated scanning for fast-paced environments. Rapid processing even in challenging conditions.</p>
+          </div>
+          <div class="tech-item reveal-fade">
+            <div class="tech-img">
+              <img src="https://ramprfid.com/wp-content/uploads/2023/09/Home-Page-Mock-Up-copy.png" alt="RAMP RFID Software" loading="lazy" />
+            </div>
+            <div class="tech-number">04</div>
+            <h3>Software</h3>
+            <p>Proprietary platform that transforms raw RFID data into actionable insights. Integrates with your existing systems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / CREDENTIALS -->
+    <section id="about" class="section section--about">
+      <div class="container">
+        <div class="about-hero">
+          <span class="section-label">Who We Are</span>
+          <h2 class="section-title reveal-text">Industry pioneers with <em>75+ years</em> combined experience</h2>
+          <p class="about-description reveal-fade">Australian-owned. ISO 9001:2015 certified. Deloitte Technology Fast 50 listed. We're software developers, hardware suppliers, and solution experts who've been at the forefront of RFID since the beginning.</p>
+        </div>
+
+        <div class="credentials-row reveal-fade">
+          <div class="credential">
+            <span class="credential-value">75+</span>
+            <span class="credential-label">Years Combined Experience</span>
+          </div>
+          <div class="credential">
+            <span class="credential-value">ISO 9001</span>
+            <span class="credential-label">Quality Certified</span>
+          </div>
+          <div class="credential">
+            <span class="credential-value">3X</span>
+            <span class="credential-label">Deloitte Fast 50</span>
+          </div>
+          <div class="credential">
+            <span class="credential-value">33+</span>
+            <span class="credential-label">Enterprise Clients</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERSHIPS -->
+    <section id="partners" class="section section--partners">
+      <div class="container">
+        <span class="section-label">Partnerships</span>
+        <h2 class="section-title reveal-text">Backed by <em>global leaders</em></h2>
+        <div class="partners-grid">
+          <a href="https://asset.guru/" target="_blank" rel="noopener" class="partner-card reveal-fade">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/05/RAMP-asset-guru-logo-1.png" alt="Asset Guru" loading="lazy" />
+            <span>Cloud-based asset management</span>
+          </a>
+          <a href="https://barcodedynamics.com.au/" target="_blank" rel="noopener" class="partner-card reveal-fade">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/05/RAMP-Barcode-Dynamics-logo.png" alt="Barcode Dynamics" loading="lazy" />
+            <span>Barcode & RFID specialists</span>
+          </a>
+          <a href="https://starshipit.com/" target="_blank" rel="noopener" class="partner-card reveal-fade">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/11/SSI_Logo_Horizontal_Blue-600x206.png" alt="Starshipit" loading="lazy" />
+            <span>Shipping experiences</span>
+          </a>
+          <a href="https://rfid.averydennison.com/" target="_blank" rel="noopener" class="partner-card reveal-fade">
+            <img src="https://ramprfid.com/wp-content/uploads/2023/05/Ramp-Avery-Dennison-logo.png" alt="Avery Dennison" loading="lazy" />
+            <span>Global tag manufacturing</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / CTA -->
+    <section id="contact" class="section section--contact">
+      <div class="container">
+        <div class="contact-split">
+          <div class="contact-left">
+            <h2 class="section-title reveal-text">Ready to unlock <em>real-time visibility?</em></h2>
+            <p class="reveal-fade">Talk to our team of RFID experts. From initial consultation through ongoing support — we'll guide you every step of the way.</p>
+            <div class="contact-details reveal-fade">
+              <a href="tel:1300726701" class="contact-link">
+                <span class="contact-icon">&#9742;</span>
+                1300 RAMP 01
+              </a>
+              <a href="mailto:info@ramprfid.com" class="contact-link">
+                <span class="contact-icon">&#9993;</span>
+                info@ramprfid.com
+              </a>
+            </div>
+            <div class="contact-offices reveal-fade">
+              <div class="office">
+                <strong>Sydney HQ</strong>
+                <p>Unit 8/8-10 Burrows Road<br/>St Peters NSW 2044</p>
+              </div>
+              <div class="office">
+                <strong>Melbourne</strong>
+                <p>12/412 St. Kilda Road<br/>Melbourne VIC 3004</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-right">
+            <form class="contact-form reveal-fade" id="contact-form">
+              <div class="form-group">
+                <input type="text" name="name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <input type="email" name="email" placeholder="Email address" required />
+              </div>
+              <div class="form-group">
+                <input type="text" name="company" placeholder="Company" />
+              </div>
+              <div class="form-group">
+                <textarea name="message" placeholder="Tell us about your project" rows="4"></textarea>
+              </div>
+              <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="section section--footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img src="https://ramprfid.wpengine.com/wp-content/uploads/2023/06/logo.png" alt="RAMP RFID" />
+            <p>Streamlining asset and inventory management for businesses across Australia.</p>
+          </div>
+          <div class="footer-links">
+            <div class="footer-col">
+              <h4>Solutions</h4>
+              <a href="#solutions">Asset Tracking</a>
+              <a href="#solutions">Inventory Tracking</a>
+              <a href="#solutions">Vehicle Identification</a>
+            </div>
+            <div class="footer-col">
+              <h4>Company</h4>
+              <a href="#about">About Us</a>
+              <a href="#case-studies">Case Studies</a>
+              <a href="#partners">Partnerships</a>
+            </div>
+            <div class="footer-col">
+              <h4>Connect</h4>
+              <a href="https://linkedin.com/company/ramp-rfid-solutions" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://youtube.com/channel/UCiTSy32MxWvCvaBqDfyBIBQ" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://facebook.com/RampRFID" target="_blank" rel="noopener">Facebook</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2024 RAMP RFID Solutions. All rights reserved.</span>
+          <div class="footer-legal">
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

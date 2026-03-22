@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bgCanvas) {
     const ctx = bgCanvas.getContext('2d');
     const frames = [];
-    const TOTAL_FRAMES = 120; // extract 120 frames from the video
+    const TOTAL_FRAMES = 60; // fewer frames = faster load, still smooth
     let framesLoaded = false;
     let currentFrame = 0;
     let targetFrame = 0;
@@ -56,24 +56,33 @@ document.addEventListener('DOMContentLoaded', () => {
         video.addEventListener('loadeddata', async () => {
           const duration = video.duration;
           const step = duration / TOTAL_FRAMES;
+          // Use half-res for faster extraction + less memory
           const offscreen = document.createElement('canvas');
-          offscreen.width = video.videoWidth;
-          offscreen.height = video.videoHeight;
+          offscreen.width = Math.round(video.videoWidth / 1.5);
+          offscreen.height = Math.round(video.videoHeight / 1.5);
           const offCtx = offscreen.getContext('2d');
+
+          const loaderText = document.querySelector('.loader-text');
 
           for (let i = 0; i < TOTAL_FRAMES; i++) {
             video.currentTime = i * step;
             await new Promise(r => {
               video.addEventListener('seeked', r, { once: true });
             });
-            offCtx.drawImage(video, 0, 0);
+            offCtx.drawImage(video, 0, 0, offscreen.width, offscreen.height);
             const bitmap = await createImageBitmap(offscreen);
             frames.push(bitmap);
+
+            // Update loader with progress
+            if (loaderText) {
+              loaderText.textContent = `${Math.round(((i + 1) / TOTAL_FRAMES) * 100)}%`;
+            }
           }
 
           framesLoaded = true;
-          // Draw first frame immediately
           drawFrame(0);
+          // Hide loader now that frames are ready
+          document.getElementById('loader').classList.add('hidden');
           resolve();
         });
       });
@@ -133,10 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     extractFrames();
   }
 
-  // Hide loader
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-  }, 1200);
+  // Loader is hidden by frame extraction completion above
 
   // Navigation scroll state
   const nav = document.getElementById('nav');

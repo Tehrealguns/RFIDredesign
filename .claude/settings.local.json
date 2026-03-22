@@ -26,7 +26,10 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:github.com)",
       "Bash(curl -sL \"https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/SomeStay07/claude-memory-skill/main/SKILL.md\")",
+      "Bash(mkdir -p ~/.claude/skills/memory)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/SomeStay07/claude-memory-skill/main/SKILL.md\" -o ~/.claude/skills/memory/SKILL.md)"
     ]
   }
 }

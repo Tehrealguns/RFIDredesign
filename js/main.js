@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bgCanvas) {
     const ctx = bgCanvas.getContext('2d');
     const frames = [];
-    const TOTAL_FRAMES = 60; // fewer frames = faster load, still smooth
+    const TOTAL_FRAMES = 120;
     let framesLoaded = false;
     let currentFrame = 0;
     let targetFrame = 0;
@@ -129,13 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const y = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = Math.min(Math.max(y / maxScroll, 0), 1);
-
-      // Triangle wave: disassemble first half, reassemble second half
-      const tri = progress <= 0.5
-        ? progress * 2
-        : (1 - progress) * 2;
-
-      targetFrame = tri * (TOTAL_FRAMES - 1);
+      targetFrame = progress * (TOTAL_FRAMES - 1);
     }, { passive: true });
 
     // Start extraction

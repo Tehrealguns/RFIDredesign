@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations(sceneCtx);
   });
 
-  // ---- SCROLL-DRIVEN VIDEO (Canvas Frame Sequence) ----
+  // ---- SCROLL-DRIVEN VIDEO (Parallel Frame Loading) ----
   const bgCanvas = document.getElementById('bg-canvas');
   if (bgCanvas) {
     const ctx = bgCanvas.getContext('2d');
-    const frames = [];
     const TOTAL_FRAMES = 120;
-    let framesLoaded = false;
+    const frames = new Array(TOTAL_FRAMES);
+    let loadedCount = 0;
     let currentFrame = 0;
     let targetFrame = 0;
 
@@ -40,52 +40,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const resizeCanvas = () => {
       bgCanvas.width = window.innerWidth;
       bgCanvas.height = window.innerHeight;
+      // Redraw current frame after resize
+      const idx = Math.round(currentFrame);
+      if (frames[idx]) drawFrame(idx);
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Extract all frames from video into ImageBitmap array
-    const extractFrames = () => {
-      return new Promise((resolve) => {
-        const video = document.createElement('video');
-        video.src = '/video/bg.mp4';
-        video.muted = true;
-        video.playsInline = true;
-        video.preload = 'auto';
+    // Step 1: Play video once to populate browser cache, then seek all frames
+    const loadFrames = async () => {
+      const video = document.createElement('video');
+      video.src = '/video/bg.mp4';
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      video.crossOrigin = 'anonymous';
 
-        video.addEventListener('loadeddata', async () => {
-          const duration = video.duration;
-          const step = duration / TOTAL_FRAMES;
-          // Use half-res for faster extraction + less memory
-          const offscreen = document.createElement('canvas');
-          offscreen.width = Math.round(video.videoWidth / 1.5);
-          offscreen.height = Math.round(video.videoHeight / 1.5);
-          const offCtx = offscreen.getContext('2d');
+      await new Promise(r => video.addEventListener('loadeddata', r, { once: true }));
 
-          const loaderText = document.querySelector('.loader-text');
+      const duration = video.duration;
+      const step = duration / TOTAL_FRAMES;
+      const loaderText = document.querySelector('.loader-text');
 
-          for (let i = 0; i < TOTAL_FRAMES; i++) {
-            video.currentTime = i * step;
-            await new Promise(r => {
-              video.addEventListener('seeked', r, { once: true });
-            });
-            offCtx.drawImage(video, 0, 0, offscreen.width, offscreen.height);
-            const bitmap = await createImageBitmap(offscreen);
-            frames.push(bitmap);
+      // Use a smaller offscreen canvas for speed
+      const ow = Math.round(video.videoWidth * 0.65);
+      const oh = Math.round(video.videoHeight * 0.65);
 
-            // Update loader with progress
-            if (loaderText) {
-              loaderText.textContent = `${Math.round(((i + 1) / TOTAL_FRAMES) * 100)}%`;
-            }
+      // Extract with multiple video elements in parallel (4 workers)
+      const WORKERS = 4;
+      const chunkSize = Math.ceil(TOTAL_FRAMES / WORKERS);
+
+      const extractChunk = async (startIdx, endIdx) => {
+        const v = document.createElement('video');
+        v.src = '/video/bg.mp4';
+        v.muted = true;
+        v.playsInline = true;
+        v.preload = 'auto';
+        v.crossOrigin = 'anonymous';
+        await new Promise(r => v.addEventListener('loadeddata', r, { once: true }));
+
+        const c = document.createElement('canvas');
+        c.width = ow;
+        c.height = oh;
+        const cx = c.getContext('2d');
+
+        for (let i = startIdx; i < endIdx && i < TOTAL_FRAMES; i++) {
+          v.currentTime = i * step;
+          await new Promise(r => v.addEventListener('seeked', r, { once: true }));
+          cx.drawImage(v, 0, 0, ow, oh);
+          frames[i] = await createImageBitmap(c);
+          loadedCount++;
+          if (loaderText) {
+            loaderText.textContent = `${Math.round((loadedCount / TOTAL_FRAMES) * 100)}%`;
           }
+        }
+      };
 
-          framesLoaded = true;
-          drawFrame(0);
-          // Hide loader now that frames are ready
-          document.getElementById('loader').classList.add('hidden');
-          resolve();
-        });
-      });
+      // Launch all chunks in parallel
+      const promises = [];
+      for (let w = 0; w < WORKERS; w++) {
+        const start = w * chunkSize;
+        const end = start + chunkSize;
+        promises.push(extractChunk(start, end));
+      }
+      await Promise.all(promises);
+
+      // Draw first frame and hide loader
+      drawFrame(0);
+      document.getElementById('loader').classList.add('hidden');
     };
 
     // Draw a specific frame to the canvas, cover-fit
@@ -95,27 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const cw = bgCanvas.width;
       const ch = bgCanvas.height;
-      const fw = frame.width;
-      const fh = frame.height;
+      const scale = Math.max(cw / frame.width, ch / frame.height);
+      const dw = frame.width * scale;
+      const dh = frame.height * scale;
 
-      // Cover fit calculation
-      const scale = Math.max(cw / fw, ch / fh);
-      const dw = fw * scale;
-      const dh = fh * scale;
-      const dx = (cw - dw) / 2;
-      const dy = (ch - dh) / 2;
-
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(frame, dx, dy, dw, dh);
+      ctx.drawImage(frame, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
     };
 
-    // Smooth animation loop — lerps to target frame
+    // Smooth animation loop
     const lerp = (a, b, t) => a + (b - a) * t;
     const tick = () => {
-      if (framesLoaded) {
+      if (loadedCount > 0) {
         currentFrame = lerp(currentFrame, targetFrame, 0.12);
-        const idx = Math.round(currentFrame);
-        if (idx >= 0 && idx < frames.length) {
+        const idx = Math.min(Math.round(currentFrame), loadedCount - 1);
+        if (idx >= 0 && frames[idx]) {
           drawFrame(idx);
         }
       }
@@ -123,17 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     tick();
 
-    // Map scroll position to frame index (triangle wave)
+    // Map scroll to frame index
     window.addEventListener('scroll', () => {
-      if (!framesLoaded) return;
+      if (loadedCount < 2) return;
       const y = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = Math.min(Math.max(y / maxScroll, 0), 1);
       targetFrame = progress * (TOTAL_FRAMES - 1);
     }, { passive: true });
 
-    // Start extraction
-    extractFrames();
+    // Start loading
+    loadFrames();
   }
 
   // Loader is hidden by frame extraction completion above

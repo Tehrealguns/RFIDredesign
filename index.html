@@ -11,6 +11,12 @@
   <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
+  <!-- Scroll-driven video background (canvas-rendered frames) -->
+  <div id="video-bg">
+    <canvas id="bg-canvas"></canvas>
+    <div id="video-overlay"></div>
+  </div>
+
   <!-- Three.js Canvas (fixed background) -->
   <canvas id="scene"></canvas>
 
@@ -56,9 +62,6 @@
 
     <!-- HERO -->
     <section id="hero" class="section section--hero">
-      <div class="hero-bg-image">
-        <img src="https://ramprfid.com/wp-content/uploads/2023/06/Home-Page-Image-Transparent-2.png" alt="RFID Hardware" class="hero-product-img" />
-      </div>
       <div class="hero-content">
         <div class="hero-tag">Radio Frequency Identification</div>
         <h1 class="hero-title">

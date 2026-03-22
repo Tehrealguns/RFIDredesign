@@ -61,18 +61,6 @@ export function initScrollAnimations(sceneCtx) {
     scale: 0.95,
   });
 
-  gsap.to('.hero-bg-image', {
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: '80% top',
-      scrub: 0.5,
-    },
-    opacity: 0,
-    x: 100,
-    scale: 1.1,
-  });
-
   gsap.to('.scroll-indicator', {
     scrollTrigger: {
       trigger: '#hero',

@@ -27,8 +27,20 @@
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 html {
-  scroll-behavior: auto; /* GSAP handles smooth scroll */
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -56,6 +68,35 @@ img {
   height: auto;
 }
 
+/* --- SCROLL-DRIVEN VIDEO BG --- */
+#video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#bg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  filter: brightness(0.7) saturate(1.3) contrast(1.1);
+}
+
+#video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 50% at center, transparent 0%, rgba(6, 26, 48, 0.4) 45%, rgba(6, 26, 48, 0.85) 75%, var(--navy-dark) 100%);
+  pointer-events: none;
+}
+
 /* --- THREE.JS CANVAS --- */
 #scene {
   position: fixed;
@@ -63,7 +104,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -242,7 +283,7 @@ img {
 /* --- CONTENT & SECTIONS --- */
 #content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .section {
@@ -1039,29 +1080,6 @@ img {
 
 .footer-legal a:hover { opacity: 1; }
 
-/* --- HERO PRODUCT IMAGE --- */
-.hero-bg-image {
-  position: absolute;
-  right: -5%;
-  bottom: 10%;
-  width: 45%;
-  max-width: 600px;
-  z-index: 1;
-  opacity: 0.15;
-  filter: drop-shadow(0 0 60px var(--teal-glow));
-  pointer-events: none;
-  animation: heroFloat 6s ease-in-out infinite;
-}
-
-.hero-product-img {
-  width: 100%;
-  height: auto;
-}
-
-@keyframes heroFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(2deg); }
-}
 
 /* --- RFID INTRO IMAGE --- */
 .rfid-hero-img {

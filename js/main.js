@@ -1,8 +1,23 @@
 import { initScene } from './scene.js';
 import { initScrollAnimations } from './scroll.js';
+import Lenis from 'lenis';
 
 // Wait for DOM
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ---- SMOOTH SCROLL (Lenis) ----
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    touchMultiplier: 1.5,
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
   // Init Three.js scene
   const sceneCtx = initScene();
 
@@ -10,6 +25,113 @@ document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(() => {
     initScrollAnimations(sceneCtx);
   });
+
+  // ---- SCROLL-DRIVEN VIDEO (Canvas Frame Sequence) ----
+  const bgCanvas = document.getElementById('bg-canvas');
+  if (bgCanvas) {
+    const ctx = bgCanvas.getContext('2d');
+    const frames = [];
+    const TOTAL_FRAMES = 120; // extract 120 frames from the video
+    let framesLoaded = false;
+    let currentFrame = 0;
+    let targetFrame = 0;
+
+    // Size canvas to viewport
+    const resizeCanvas = () => {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Extract all frames from video into ImageBitmap array
+    const extractFrames = () => {
+      return new Promise((resolve) => {
+        const video = document.createElement('video');
+        video.src = '/video/bg.mp4';
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = 'auto';
+
+        video.addEventListener('loadeddata', async () => {
+          const duration = video.duration;
+          const step = duration / TOTAL_FRAMES;
+          const offscreen = document.createElement('canvas');
+          offscreen.width = video.videoWidth;
+          offscreen.height = video.videoHeight;
+          const offCtx = offscreen.getContext('2d');
+
+          for (let i = 0; i < TOTAL_FRAMES; i++) {
+            video.currentTime = i * step;
+            await new Promise(r => {
+              video.addEventListener('seeked', r, { once: true });
+            });
+            offCtx.drawImage(video, 0, 0);
+            const bitmap = await createImageBitmap(offscreen);
+            frames.push(bitmap);
+          }
+
+          framesLoaded = true;
+          // Draw first frame immediately
+          drawFrame(0);
+          resolve();
+        });
+      });
+    };
+
+    // Draw a specific frame to the canvas, cover-fit
+    const drawFrame = (index) => {
+      const frame = frames[index];
+      if (!frame) return;
+
+      const cw = bgCanvas.width;
+      const ch = bgCanvas.height;
+      const fw = frame.width;
+      const fh = frame.height;
+
+      // Cover fit calculation
+      const scale = Math.max(cw / fw, ch / fh);
+      const dw = fw * scale;
+      const dh = fh * scale;
+      const dx = (cw - dw) / 2;
+      const dy = (ch - dh) / 2;
+
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(frame, dx, dy, dw, dh);
+    };
+
+    // Smooth animation loop — lerps to target frame
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const tick = () => {
+      if (framesLoaded) {
+        currentFrame = lerp(currentFrame, targetFrame, 0.12);
+        const idx = Math.round(currentFrame);
+        if (idx >= 0 && idx < frames.length) {
+          drawFrame(idx);
+        }
+      }
+      requestAnimationFrame(tick);
+    };
+    tick();
+
+    // Map scroll position to frame index (triangle wave)
+    window.addEventListener('scroll', () => {
+      if (!framesLoaded) return;
+      const y = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min(Math.max(y / maxScroll, 0), 1);
+
+      // Triangle wave: disassemble first half, reassemble second half
+      const tri = progress <= 0.5
+        ? progress * 2
+        : (1 - progress) * 2;
+
+      targetFrame = tri * (TOTAL_FRAMES - 1);
+    }, { passive: true });
+
+    // Start extraction
+    extractFrames();
+  }
 
   // Hide loader
   setTimeout(() => {
